@@ -48,7 +48,8 @@ public class Arbol {
 
     private int getNumElementos(NodoArbol nodo) {
         if (nodo != null) {
-            return getNumElementos(nodo.getIzquierdo()) + getNumElementos(nodo.getDerecho()) + 1; //sumar 1 por cada llamada a la funcion con un nodo != null
+            //sumar 1 por cada llamada a la funcion con un nodo != null
+            return getNumElementos(nodo.getIzquierdo()) + getNumElementos(nodo.getDerecho()) + 1;
         }
         return 0;
     }
@@ -74,6 +75,7 @@ public class Arbol {
         return getMenorElemento(raiz);
     }
 
+    //el menor elemento del abb se encontrara a la izquierda del arbol ya que no tendra nada a su izquierda
     private Alumno getMenorElemento(NodoArbol nodo) {
         if (nodo != null) {
             if (nodo.getIzquierdo() != null) {
@@ -96,12 +98,12 @@ public class Arbol {
         if (nodo != null) {
             if (nodo.getDato().getMatricula() < clave) {
                 Alumno aux = getMenorElementoClave(nodo.getDerecho(), clave);
-                if (aux != null) {
+                if (aux != null) { // si el resultado de la funcion en el nodo de la derecha es valido devolvemos ese
                     return aux;
-                } else {
+                } else { // si es null devolvemos este ya que a la izquierda seran todos menores
                     return nodo.getDato();
                 }
-            } else {
+            } else { // si el dato es mayor buscamos por la izquierda
                 return getMenorElementoClave(nodo.getIzquierdo(), clave);
             }
         } else {
