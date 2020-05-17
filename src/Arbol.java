@@ -87,63 +87,27 @@ public class Arbol {
     }
 
     // 3.5------------------------------------------------------------------------
-    // TODO 3.5: Devuelve el elemento con la mayor clave y menor que una clave
-    // dada de forma RECURSIVA
-	/*public Alumno getMenorElementoClave(int clave) {
-		Alumno aux = new Alumno("aux",0);
-		NodoArbol record = new NodoArbol(aux);
-		Alumno resul = getMenorElementoClave(raiz, clave, record);
-		if(resul != aux) {
-			return resul;
-		}else{
-			return null;
-		}
-	}
-
-	private Alumno getMenorElementoClave(NodoArbol nodo, int clave, NodoArbol record) {
-		if(nodo != null) {
-			//update record node
-			if (nodo.getDato().getMatricula() < clave && nodo.getDato().getMatricula() > record.getDato().getMatricula()) {
-				record = nodo;
-			}
-			//if right child(bigger) exist, and his key number is lower than "clave" call method with it
-			if (nodo.getDerecho() != null && nodo.getDerecho().getDato().getMatricula() < clave) {
-				return getMenorElementoClave(nodo.getDerecho(), clave, record);
-			} else if (nodo.getIzquierdo() != null) {
-				return getMenorElementoClave(nodo.getIzquierdo(), clave, record);
-			} else {
-				return record.getDato();
-			}
-		}else{
-			return null;
-		}
-	}*/
-
     public Alumno getMenorElementoClave(int clave) {
-        return getMenorElementoClave(clave, raiz);
+        return getMenorElementoClave(raiz, clave);
     }
 
-    private Alumno getMenorElementoClave(int clave, NodoArbol nodo) {
+    private Alumno getMenorElementoClave(NodoArbol nodo, int clave) {
 
-        if (nodo == null) return null;
-        if (nodo.getDato().getMatricula() == clave) return nodo.getDato();
-
-
-        // si el nodo en el que estamos es mayor que la clave hay que bajar por la izquierda
-        else if (nodo.getIzquierdo() != null && nodo.getDato().getMatricula() < clave) {
-            Alumno aux = getMenorElementoClave(clave, nodo.getDerecho());
-            if(aux == null) {
-                return nodo.getDato();
-            }else{
-                return aux;
+        if (nodo != null) {
+            if (nodo.getDato().getMatricula() < clave) {
+                Alumno aux = getMenorElementoClave(nodo.getDerecho(), clave);
+                if (aux != null) {
+                    return aux;
+                } else {
+                    return nodo.getDato();
+                }
+            } else {
+                return getMenorElementoClave(nodo.getIzquierdo(), clave);
             }
+        } else {
+            return null;
         }
 
-        else if(nodo.getDato().getMatricula() > clave) {
-            return getMenorElementoClave(clave, nodo.getIzquierdo());
-        }
-
-        return null; //si no hemos entrado en ningun caso
     }
 
 }
